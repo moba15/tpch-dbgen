@@ -103,6 +103,23 @@
 #endif
 /* End of lines added by Chuck McDevitt for WIN32 support */
 #include "dsstypes.h"
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+
+#include <string.h>
+#include <stdlib.h>
+
+#ifndef strdup
+char* strdup(const char* s) {
+    size_t len = strlen(s) + 1;
+    char* copy = malloc(len);
+    if (copy) {
+        memcpy(copy, s, len);
+    }
+    return copy;
+}
+#endif
 
 
 static char alpha_num[65] =
